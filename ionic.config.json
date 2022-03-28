@@ -1,0 +1,7 @@
+{
+  "name": "plataformasDigitales",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
