@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Añadir venta</ion-title>
+    <ion-buttons slot = "end">
+      <ion-icon (click) = "closeModal()" name = "close-circle"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true">
+  <ion-card>
+    <form [formGroup] = "form" (ngSubmit) = "agregarVenta()">
+
+    <ion-item>
+      <ion-label position="floating" >Cantidad de pantallas</ion-label>
+      <ion-input type="number" formControlName = "cantidadPantallas"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Correo/s, perfiles y pines/contraseñas</ion-label>
+    <ion-textarea formControlName = "correos"></ion-textarea>
+  </ion-item>
+
+
+ 
+
+  <ion-item>
+    <ion-label>Producto/s</ion-label>
+    <ion-select multiple="true" cancelText="Cancelar" okText="Agregar" formControlName = "productos">
+      <ion-select-option value="Netflix">Netflix</ion-select-option>
+      <ion-select-option value="Disney +">Disney +</ion-select-option>
+      <ion-select-option value="Iptv">Iptv</ion-select-option>
+      <ion-select-option value="Amazon Prime">Amazon Prime</ion-select-option>
+      <ion-select-option value="Hbo Max">Hbo Max</ion-select-option>
+      <ion-select-option value="Star +">Star +</ion-select-option>
+      <ion-select-option value="Crunchyroll">Crunchyroll</ion-select-option>
+      <ion-select-option value="Paramount">Paramount</ion-select-option>
+      <ion-select-option value="Plex">Plex</ion-select-option>
+      <ion-select-option value="Spotify">Spotify</ion-select-option>
+      <ion-select-option value="Youtube Premium">Youtube Premium</ion-select-option>
+      <ion-select-option value="Acorn">Acorn</ion-select-option>
+      <ion-select-option value="Mubi">Mubi</ion-select-option>
+      <ion-select-option value="UFC Fight Pass">UFC Fight Pass</ion-select-option>
+      <ion-select-option value="WWE Network">WWE Network</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Cliente/s</ion-label>
+    <ion-select cancelText="Cancelar" okText="Agregar" formControlName = "idCliente">
+      <ion-select-option value="olives">Black Olives</ion-select-option>
+      <ion-select-option value="xcheese">Extra Cheese</ion-select-option>
+      <ion-select-option value="peppers">Green Peppers</ion-select-option>
+      <ion-select-option value="mushrooms">Mushrooms</ion-select-option>
+      <ion-select-option value="Spinach">Spinach</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Forma de pago</ion-label>
+    <ion-select  cancelText="Cancelar" okText="Agregar" formControlName = "formaPago">
+      <ion-select-option value="Nequi">Nequi</ion-select-option>
+      <ion-select-option value="Bancolombia">Bancolombia</ion-select-option>
+      <ion-select-option value="Daviplata">Daviplata</ion-select-option>
+      <ion-select-option value="Giro">Giro</ion-select-option>
+      <ion-select-option value="Movii">Movii</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label>Plataforma (Opcional si no es IPTV)</ion-label>
+    <ion-select  cancelText="Cancelar" okText="Agregat" formControlName = "plataforma">
+      <ion-select-option value="Stream Go">Stream Go</ion-select-option>
+      <ion-select-option value="Digital Play">Digital play</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Tipo de compra</ion-label>
+    <ion-select  cancelText="Cancelar" okText="Agregat" formControlName = "tipo">
+      <ion-select-option value="Nueva">Nueva</ion-select-option>
+      <ion-select-option value="Renovación">Renovación</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" >Precio total</ion-label>
+    <ion-input type="number" formControlName = "precioTotal"></ion-input>
+</ion-item>
+
+<ion-button type = "submit" expand = "block">Añadir</ion-button>
+
+</form>
+
+</ion-card>
+</ion-content>

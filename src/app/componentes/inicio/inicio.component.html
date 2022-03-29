@@ -1,0 +1,176 @@
+<ion-header>
+  
+  <div class = "grad_back">
+    <div class = "btn_flex">
+      <div>
+        <ion-button slot = "start" fill = "clear" size = "small">
+          <ion-icon name = "menu-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+      <div>
+        <ion-button fill = "clear" size = "small">
+          <ion-icon name = "search-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button fill = "clear" size = "small">
+          <ion-icon name = "notifications-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+    <div class = "logo">
+      <img src = "../../../assets/icon/logo.jpeg" >
+      <ion-label class = "saldo">$9.000</ion-label>
+    </div>
+  
+    <ion-label class = "ventas" *ngIf = "valorSegmento == 'Ventas'">Ventas</ion-label>
+    <ion-label class = "ventas" *ngIf = "valorSegmento == 'Productos'">Productos</ion-label>
+    <ion-label class = "ventas" *ngIf = "valorSegmento == 'Clientes'">Clientes</ion-label>
+    <ion-label class = "ventas" *ngIf = "valorSegmento == 'Gastos'">Gastos</ion-label>
+  </div>
+
+  <ion-segment value = "Ventas" mode = "md" (ionChange) = "segmentChanged($event)">
+    <ion-segment-button value = "Ventas">
+      <ion-label>Ventas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value = "Productos">
+      <ion-label>Productos</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value = "Clientes">
+      <ion-label>Clientes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value = "Gastos">
+      <ion-label>Gastos</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+
+</ion-header>
+
+  <ion-content *ngIf = "valorSegmento == 'Ventas'">
+    <div class = "main_content_div">
+      <span  >
+        <ion-card class="ion-activated" *ngFor = "let venta of listVentas">
+              <ion-card-header>
+                <ion-card-subtitle>{{venta.codigoReferencia}}</ion-card-subtitle>
+                <ion-card-title color = "secondary">{{venta.productos}}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label>Cantidad: {{venta.cantidadPantallas}}</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label slot = "start">Precio: {{venta.precioTotal}}</ion-label>
+                  <div class="item-note" slot = "end">
+                    <button ion-button clear (click)="updateTask(i)">
+                      <ion-icon name="create"></ion-icon>
+                    </button>
+                    <button ion-button clear (click)="eliminarVenta(venta.idVenta)">
+                      <ion-icon name="trash"></ion-icon>
+                    </button>
+                  </div>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>Forma de pago: {{venta.formaPago}}</ion-label>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>Tipo de compra: <span color = "success">{{venta.tipo}}</span></ion-label>
+                </ion-item>
+              </ion-card-content>  
+      </ion-card>
+    </span>
+
+   
+  </div>
+</ion-content >
+
+
+  <ion-fab  *ngIf = "valorSegmento == 'Ventas'" horizontal = "end" vertical = "bottom" slot = "fixed">
+    <ion-fab-button (click) = "openModal(undefined)"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
+  </ion-fab>
+
+  <ion-fab  *ngIf = "valorSegmento == 'Productos'" horizontal = "end" vertical = "bottom" slot = "fixed">
+    <ion-fab-button (click) = "openModal(undefined)"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
+  </ion-fab>
+
+  <ion-fab  *ngIf = "valorSegmento == 'Clientes'" horizontal = "end" vertical = "bottom" slot = "fixed">
+    <ion-fab-button (click) = "openModalCliente(undefined)"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
+  </ion-fab>
+
+  <ion-fab  *ngIf = "valorSegmento == 'Gastos'" horizontal = "end" vertical = "bottom" slot = "fixed">
+    <ion-fab-button (click) = "openModalGasto(undefined)"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
+  </ion-fab>
+
+
+
+<ion-content  *ngIf = "valorSegmento == 'Clientes'">
+  <div class = "main_content_div">
+    <span >
+      <ion-card class="ion-activated" *ngFor = "let cliente of listClientes">
+        <ion-card-header>
+          <ion-card-title color = "secondary">{{cliente.nombre}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-label >Whatsapp: {{cliente.whatsapp}}</ion-label>
+            <div class="item-note" slot = "end">
+              <button ion-button clear (click)="updateTask(i)">
+                <ion-icon name="create"></ion-icon>
+              </button>
+              <button ion-button clear (click)="eliminarVenta(venta.idVenta)">
+                <ion-icon name="trash"></ion-icon>
+              </button>
+            </div>
+          </ion-item>
+        </ion-card-content>
+
+       
+          
+        </ion-card>
+      </span>
+      
+  </div>
+
+</ion-content>
+
+
+  <ion-content *ngIf = "valorSegmento == 'Gastos'">
+    <div class = "main_content_div">
+      <span  >
+        <ion-card class="ion-activated" *ngFor = "let gasto of listGastos">
+              <ion-card-header>
+                <ion-card-subtitle>{{gasto.codigoReferencia}}</ion-card-subtitle>
+                <ion-card-title color = "secondary">{{gasto.productos}}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label>Cantidad: {{gasto.cantidadPantallas}}</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label slot = "start">Precio: {{gasto.precioTotal}}</ion-label>
+                  <div class="item-note" slot = "end">
+                    <button ion-button clear (click)="updateTask(i)">
+                      <ion-icon name="create"></ion-icon>
+                    </button>
+                    <button ion-button clear (click)="eliminarGasto(venta.idGasto)">
+                      <ion-icon name="trash"></ion-icon>
+                    </button>
+                  </div>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>Forma de pago: {{gasto.formaPago}}</ion-label>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>Tipo de compra: <span color = "success">{{gasto.tipo}}</span></ion-label>
+                </ion-item>
+              </ion-card-content>  
+      </ion-card>
+    </span>
+
+   
+  </div>
+</ion-content >

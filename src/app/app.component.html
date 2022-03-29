@@ -1,3 +1,35 @@
-<ion-app>
-  <ion-router-outlet></ion-router-outlet>
-</ion-app>
+<img src = "https://i.blogs.es/edf046/disney-plus-vs-netflix/1366_2000.jpg" *ngIf = "!usuarioLogeado">
+
+
+<ion-card *ngIf = "!usuarioLogeado">
+  <ion-card-header>
+    <ion-card-title text-center>Plataformas digitales</ion-card-title>
+    <ion-card-subtitle >Iniciar Sesión</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-item>
+      <ion-label position="floating">Digite su correo</ion-label>
+      <ion-input [(ngModel)] = "usuario.email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Digite su contraseña</ion-label>
+      <ion-input [(ngModel)] = "usuario.password"></ion-input>
+    </ion-item>
+
+
+      <ion-button expand="block" (click) = "Ingresar()">Ingresar</ion-button>
+
+
+      <ion-button expand="block"  color = "secondary" (click) = "IngresarConGoogle()">Ingresar con Google</ion-button>
+
+
+    
+    <ion-item>
+      <ion-label>¿Aún no tienes cuenta? <a>Regístrate</a></ion-label>
+    </ion-item>
+  </ion-card-content>
+
+</ion-card>
+
+<router-outlet *ngIf = "usuarioLogeado"></router-outlet>

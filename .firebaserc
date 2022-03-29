@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "plataformasdigitales-a4454": {
+      "hosting": {
+        "app": [
+          "plataformasdigitales-a4454"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "plataformasdigitales-a4454"
+  }
+}
