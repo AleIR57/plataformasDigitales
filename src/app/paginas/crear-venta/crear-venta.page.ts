@@ -1,3 +1,4 @@
+import { Vendedor } from './../../models/Vendedor';
 import { element } from 'protractor';
 import { CrudService } from './../../servicios/crud.service';
 import { Venta } from './../../models/Venta';
@@ -5,6 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { docData } from '@angular/fire/firestore';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-crear-venta',
@@ -17,6 +19,10 @@ export class CrearVentaPage implements OnInit {
   form: FormGroup;
   titulo:any;
   id: string | undefined;
+  listVendedor: any[] = [];
+  dinero:any;
+  variableDinero:any;
+  VENDEDOR: Vendedor;
   constructor(public modalController: ModalController, private fb: FormBuilder, private crudService: CrudService) { 
     this.form = this.fb.group({
       codigoReferencia: generateRandomString(6),
@@ -66,13 +72,40 @@ export class CrearVentaPage implements OnInit {
    console.log(VENTA);
    this.crudService.agregarVenta(VENTA).then(() =>{
      console.log("Venta registrada");
+     this.editarVendedor();
      this.modalController.dismiss();
    }, error =>{
      console.log(error);
    })
   }
 
- 
+  editarVendedor(){
+    
+
+    this.crudService.getVendedorEdit('QmgFh25b48hS6eRifRGm').pipe(first()).subscribe(doc =>{
+      this.listVendedor.push(doc.payload.data());
+      this.dinero = Number(this.listVendedor[0].dinero);
+      
+      this.variableDinero = String(this.dinero+Number(this.form.value.precioTotal));
+      console.log("Precio resta: " +this.variableDinero)
+      
+      this.VENDEDOR = {
+        nombre: 'Alejandro',
+        whatsapp: '3122031469',
+        dinero: this.variableDinero,
+        fechaInicio: '30/03/2022',
+    
+     }
+     console.log("Precio: " + this.dinero)
+     this.crudService.editarVendedor('QmgFh25b48hS6eRifRGm', this.VENDEDOR);
+     
+    });
+
+    
+  
+   
+  }
+
   
 
 }
@@ -93,5 +126,7 @@ const displayRandomString = () =>{
  let randomStringContainer = document.getElementById('random_string'); 
   randomStringContainer.innerHTML =  generateRandomString(8);    
 }
+
+
 
 

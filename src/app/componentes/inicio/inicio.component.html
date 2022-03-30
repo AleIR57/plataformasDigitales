@@ -4,7 +4,7 @@
     <div class = "btn_flex">
       <div>
         <ion-button slot = "start" fill = "clear" size = "small">
-          <ion-icon name = "menu-outline"></ion-icon>
+          <ion-menu-button autoHide = "true"><ion-icon name = "menu-outline" ></ion-icon></ion-menu-button>
         </ion-button>
       </div>
 
@@ -18,9 +18,9 @@
         </ion-button>
       </div>
     </div>
-    <div class = "logo">
+    <div class = "logo" >
       <img src = "../../../assets/icon/logo.jpeg" >
-      <ion-label class = "saldo">$9.000</ion-label>
+      <ion-label class = "saldo" *ngFor = "let vendedor of listVendedor">${{vendedor.dinero}}</ion-label>
     </div>
   
     <ion-label class = "ventas" *ngIf = "valorSegmento == 'Ventas'">Ventas</ion-label>
@@ -92,7 +92,7 @@
   </ion-fab>
 
   <ion-fab  *ngIf = "valorSegmento == 'Productos'" horizontal = "end" vertical = "bottom" slot = "fixed">
-    <ion-fab-button (click) = "openModal(undefined)"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
+    <ion-fab-button (click) = "openModalProducto(undefined)"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
   </ion-fab>
 
   <ion-fab  *ngIf = "valorSegmento == 'Clientes'" horizontal = "end" vertical = "bottom" slot = "fixed">
@@ -103,6 +103,39 @@
     <ion-fab-button (click) = "openModalGasto(undefined)"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
   </ion-fab>
 
+
+  <ion-content  *ngIf = "valorSegmento == 'Productos'">
+    <div class = "main_content_div">
+      <span >
+        <ion-grid>
+
+      
+        <ion-row *ngFor = "let producto of listProductos">
+          <ion-col >
+            <ion-card class="ion-activated" (click) = "openModalCuenta(undefined)">
+              <ion-card-header>
+                  <ion-card-title color = "secondary">{{producto.nombre}}</ion-card-title>
+
+                
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                    <img src = "{{producto.foto}}" class = "logoProducto">
+                   
+                </ion-item>
+              </ion-card-content>
+      
+        
+              </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+       
+        </span>
+        
+    </div>
+  
+  </ion-content>
 
 
 <ion-content  *ngIf = "valorSegmento == 'Clientes'">
@@ -119,7 +152,7 @@
               <button ion-button clear (click)="updateTask(i)">
                 <ion-icon name="create"></ion-icon>
               </button>
-              <button ion-button clear (click)="eliminarVenta(venta.idVenta)">
+              <button ion-button clear (click)="eliminarCliente(cliente.idCliente)">
                 <ion-icon name="trash"></ion-icon>
               </button>
             </div>
@@ -154,7 +187,7 @@
                     <button ion-button clear (click)="updateTask(i)">
                       <ion-icon name="create"></ion-icon>
                     </button>
-                    <button ion-button clear (click)="eliminarGasto(venta.idGasto)">
+                    <button ion-button clear (click)="eliminarGasto(gasto.id)">
                       <ion-icon name="trash"></ion-icon>
                     </button>
                   </div>

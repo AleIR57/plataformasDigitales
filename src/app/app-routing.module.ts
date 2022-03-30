@@ -29,6 +29,14 @@ const routes: Routes = [
     path: 'crear-gasto',
     loadChildren: () => import('./paginas/crear-gasto/crear-gasto.module').then( m => m.CrearGastoPageModule)
   },
+  {
+    path: 'crear-producto',
+    loadChildren: () => import('./paginas/crear-producto/crear-producto.module').then( m => m.CrearProductoPageModule)
+  },
+  {
+    path: 'listar-cuentas-por-producto',
+    loadChildren: () => import('./paginas/listar-cuentas-por-producto/listar-cuentas-por-producto.module').then( m => m.ListarCuentasPorProductoPageModule)
+  },
 ];
 
 @NgModule({

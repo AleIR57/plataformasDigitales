@@ -1,15 +1,16 @@
-import { Cliente } from './../../models/Cliente';
+import { Producto } from './../../models/Producto';
 import { CrudService } from 'src/app/servicios/crud.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-crear-cliente',
-  templateUrl: './crear-cliente.page.html',
-  styleUrls: ['./crear-cliente.page.scss'],
+  selector: 'app-crear-producto',
+  templateUrl: './crear-producto.page.html',
+  styleUrls: ['./crear-producto.page.scss'],
 })
-export class CrearClientePage implements OnInit {
+export class CrearProductoPage implements OnInit {
+
   form: FormGroup;
   titulo:any;
   id: string | undefined;
@@ -18,8 +19,7 @@ export class CrearClientePage implements OnInit {
   constructor(public modalController: ModalController, private fb: FormBuilder, private crudService: CrudService) { 
     this.form = this.fb.group({
       nombre: [''],
-      whatsapp: [''],
-      fechaInicio: new Date(),
+      foto: [''],
     })
   }
 
@@ -34,18 +34,16 @@ export class CrearClientePage implements OnInit {
 
  
   
-  agregarCliente(){
-    const CLIENTE: Cliente = {
+  agregarProducto(){
+    const PRODUCTO: Producto = {
       nombre: this.form.value.nombre,
-      whatsapp: this.form.value.whatsapp,
-      fechaInicio: this.form.value.fechaInicio,
+      foto: this.form.value.foto,
   
    }
-  
-   
-   console.log(CLIENTE);
-   this.crudService.agregarCliente(CLIENTE).then(() =>{
-     console.log("Cliente registrado");
+
+   console.log(PRODUCTO);
+   this.crudService.agregarProducto(PRODUCTO).then(() =>{
+     console.log("Producto registrado");
      this.modalController.dismiss();
    }, error =>{
      console.log(error);
@@ -53,10 +51,5 @@ export class CrearClientePage implements OnInit {
   }
 
 
-  
- 
-  
 
 }
-
-

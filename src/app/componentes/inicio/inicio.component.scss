@@ -10,11 +10,12 @@
         justify-content: space-between;
         height: 50px;
         align-items: center;
-        padding-top: 40px;
+        padding-top: 20px;
     }
 
     ion-icon{
         font-size: 20px;
+        height: 80px;
         color: white;
     }
 
@@ -65,20 +66,28 @@ ion-label{
     height: 80px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
     
 }
 
 .logo .saldo{
-    margin-left: 14%;
     color: rgb(12, 143, 12);
-    font-size: 18px;
     font-weight: bold;
 }
 
 .logo img{
     border-radius: 60px;
+    
 }
 
 ion-icon{
     height: 15px;
+}
+
+.logoProducto{
+    width: 200px;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 1%;
 }

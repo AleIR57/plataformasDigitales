@@ -1,9 +1,12 @@
+import { Vendedor } from './../models/Vendedor';
+import { Cuenta } from './../models/Cuenta';
 import { Gasto } from './../models/Gasto';
 import { Cliente } from './../models/Cliente';
 import { Venta } from './../models/Venta';
 import {AngularFirestore } from '@angular/fire/compat/firestore';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { Producto } from '../models/Producto';
 @Injectable({
   providedIn: 'root'
 })
@@ -87,4 +90,82 @@ export class CrudService {
   getGastoEdit(idGasto: string){
     return this.firebase.collection('gastos').doc(idGasto).get();
   }
+
+  agregarProducto(producto: Producto){
+    return this.firebase.collection('productos').add(producto);
+
+  }
+
+  obtenerProductos(): Observable<any>{
+    return this.firebase.collection('productos').snapshotChanges();
+  }
+
+  eliminarProducto(id: string): Promise<any>{
+    return this.firebase.collection('productos').doc(id).delete();
+  }
+
+  editarProducto(id: string, producto:any): Promise<any>{
+   return this.firebase.collection('productos').doc(id).update(producto);
+  }
+
+  addProductoEdit(producto: Producto){
+    this.venta$.next(producto);
+  }
+
+  getProductoEdit(idProducto: string){
+    return this.firebase.collection('productos').doc(idProducto).get();
+  }
+
+  agregarCuenta(cuenta: Cuenta){
+    return this.firebase.collection('cuentas').add(cuenta);
+
+  }
+
+  obtenerCuentas(): Observable<any>{
+    return this.firebase.collection('cuentas').snapshotChanges();
+  }
+
+  eliminarCuenta(id: string): Promise<any>{
+    return this.firebase.collection('cuentas').doc(id).delete();
+  }
+
+  editarCuenta(id: string, cuenta:any): Promise<any>{
+   return this.firebase.collection('cuentas').doc(id).update(cuenta);
+  }
+
+  addCuentaEdit(cuenta: Cuenta){
+    this.venta$.next(cuenta);
+  }
+
+  getCuentaEdit(idCuenta: string){
+    return this.firebase.collection('productos').doc(idCuenta).get();
+  }
+
+  agregarVendedor(vendedor: Vendedor){
+    return this.firebase.collection('vendedores').add(vendedor);
+
+  }
+
+  obtenerVendedores(): Observable<any>{
+    return this.firebase.collection('vendedores').snapshotChanges();
+  }
+
+  eliminarVendedor(id: string): Promise<any>{
+    return this.firebase.collection('vendedores').doc(id).delete();
+  }
+
+  editarVendedor(id: string, cuenta:any): Promise<any>{
+   return this.firebase.collection('vendedores').doc(id).update(cuenta);
+  }
+
+  addVendedorEdit(vendedor: Vendedor){
+    this.venta$.next(vendedor);
+  }
+
+  getVendedorEdit(idVendedor: string){
+    return  this.firebase.collection('vendedores').doc(idVendedor).snapshotChanges();
+  }
+
+
+
 }

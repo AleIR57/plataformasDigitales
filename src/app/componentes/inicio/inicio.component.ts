@@ -1,3 +1,7 @@
+import { ListarCuentasPorProductoPage } from './../../paginas/listar-cuentas-por-producto/listar-cuentas-por-producto.page';
+import { Vendedor } from './../../models/Vendedor';
+import { Producto } from './../../models/Producto';
+import { CrearProductoPage } from './../../paginas/crear-producto/crear-producto.page';
 import { Gasto } from './../../models/Gasto';
 import { CrearGastoPage } from './../../paginas/crear-gasto/crear-gasto.page';
 import { Cliente } from './../../models/Cliente';
@@ -17,7 +21,11 @@ export class InicioComponent implements OnInit {
   listVentas: Venta[] = [];
   listClientes: Cliente[] = [];
   listGastos: Gasto[] = [];
+  listProductos: Producto[] = [];
+  listVendedor: any[] = [];
   valorSegmento:any = 'Ventas';
+  dinero: any;
+  lastItem: any = [];
 
   constructor(public modalController: ModalController, private crudService: CrudService) { }
 
@@ -25,6 +33,8 @@ export class InicioComponent implements OnInit {
     this.obtenerVentas();
     this.obtenerClientes();
     this.obtenerGastos();
+    this.obtenerProductos();
+    this.obtenerVendedor();
   }
 
   segmentChanged(event:any){
@@ -56,6 +66,24 @@ export class InicioComponent implements OnInit {
   async openModalGasto(id:any){
     const modal = await this.modalController.create({
       component: CrearGastoPage,
+      cssClass: 'my-suctom-class',
+     
+    });
+    return await modal.present();
+  }
+
+  async openModalProducto(id:any){
+    const modal = await this.modalController.create({
+      component: CrearProductoPage,
+      cssClass: 'my-suctom-class',
+     
+    });
+    return await modal.present();
+  }
+
+  async openModalCuenta(id:any){
+    const modal = await this.modalController.create({
+      component: ListarCuentasPorProductoPage,
       cssClass: 'my-suctom-class',
      
     });
@@ -107,9 +135,37 @@ export class InicioComponent implements OnInit {
     })
   }
 
+  obtenerProductos(){
+    this.crudService.obtenerProductos().subscribe(doc =>{
+      console.log(doc);
+      this.listProductos = [];
+      doc.forEach(element => {
+        this.listProductos.push({
+          idCliente: element.payload.doc.id,
+          ...element.payload.doc.data(),
+        })
+          console.log(element.payload.doc.id);
+          console.log(element.payload.doc.data())
+      });
+    })
+  }
+
+
   eliminarVenta(id:any){
     this.crudService.eliminarVenta(id).then(() =>{
       
+    })
+  }
+
+  eliminarCliente(id:any){
+    this.crudService.eliminarCliente(id).then(() =>{
+      
+    })
+  }
+
+  eliminarGasto(id:any){
+    this.crudService.eliminarGasto(id).then(() =>{
+      console.log(id);
     })
   }
 
@@ -119,6 +175,20 @@ export class InicioComponent implements OnInit {
 
   loadData($event){
     
+  }
+
+  obtenerVendedor(){
+    this.crudService.getVendedorEdit('QmgFh25b48hS6eRifRGm').subscribe(doc =>{
+      console.log(doc);
+      this.listVendedor.push(doc.payload.data());
+      for(let i = 0; i < this.listVendedor.length-1; i++){
+        this.listVendedor.splice(i, 1);
+      }
+     
+     
+      console.log(this.listVendedor);
+     
+    });
   }
 
 

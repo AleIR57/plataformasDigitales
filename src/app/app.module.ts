@@ -1,3 +1,5 @@
+import { ListarCuentasPorProductoPage } from './paginas/listar-cuentas-por-producto/listar-cuentas-por-producto.page';
+import { CrearProductoPage } from './paginas/crear-producto/crear-producto.page';
 import { CrearGastoPage } from './paginas/crear-gasto/crear-gasto.page';
 import { CrearClientePage } from './paginas/crear-cliente/crear-cliente.page';
 import { firebaseConfig } from './../environments/environment';
@@ -25,7 +27,7 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 
 @NgModule({
-  declarations: [AppComponent, InicioComponent, CrearVentaPage, CrearClientePage, CrearGastoPage],
+  declarations: [AppComponent, InicioComponent, CrearVentaPage, CrearClientePage, CrearGastoPage, CrearProductoPage, ListarCuentasPorProductoPage],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, provideFirebaseApp(() => initializeApp(firebaseConfig)), provideAnalytics(() => getAnalytics()), provideAuth(() => getAuth()), provideDatabase(() => getDatabase()), provideFirestore(() => getFirestore()), provideFunctions(() => getFunctions()), provideMessaging(() => getMessaging()), providePerformance(() => getPerformance()), provideRemoteConfig(() => getRemoteConfig()), provideStorage(() => getStorage()), ReactiveFormsModule, FormsModule, AngularFireModule.initializeApp(firebaseConfig)],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, ScreenTrackingService,UserTrackingService],
