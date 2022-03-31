@@ -1,3 +1,4 @@
+import { Cliente } from './../../models/Cliente';
 import { Vendedor } from './../../models/Vendedor';
 import { element } from 'protractor';
 import { CrudService } from './../../servicios/crud.service';
@@ -23,6 +24,7 @@ export class CrearVentaPage implements OnInit {
   dinero:any;
   variableDinero:any;
   VENDEDOR: Vendedor;
+  listClientes: Cliente[] = [];
   constructor(public modalController: ModalController, private fb: FormBuilder, private crudService: CrudService) { 
     this.form = this.fb.group({
       codigoReferencia: generateRandomString(6),
@@ -41,6 +43,7 @@ export class CrearVentaPage implements OnInit {
 
   ngOnInit() {
     console.log(this.idVenta);
+    this.obtenerClientes();
     this.crudService.getVentaEdit(this.idVenta).subscribe(doc =>{
       console.log(doc.data())
     })
@@ -49,6 +52,21 @@ export class CrearVentaPage implements OnInit {
 
   closeModal(){
     this.modalController.dismiss();
+  }
+
+  obtenerClientes(){
+    this.crudService.obtenerClientes().subscribe(doc =>{
+      
+      this.listClientes = [];
+      doc.forEach(element => {
+        this.listClientes.push({
+          idCliente: element.payload.doc.id,
+          ...element.payload.doc.data(),
+        })
+          console.log(element.payload.doc.id);
+          console.log(element.payload.doc.data())
+      });
+    })
   }
 
  

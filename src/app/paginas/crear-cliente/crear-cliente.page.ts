@@ -20,6 +20,7 @@ export class CrearClientePage implements OnInit {
       nombre: [''],
       whatsapp: [''],
       fechaInicio: new Date(),
+      estado: [''],
     })
   }
 
@@ -39,6 +40,7 @@ export class CrearClientePage implements OnInit {
       nombre: this.form.value.nombre,
       whatsapp: this.form.value.whatsapp,
       fechaInicio: this.form.value.fechaInicio,
+      estado: this.form.value.estado,
   
    }
   

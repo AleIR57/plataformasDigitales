@@ -113,12 +113,16 @@ export class CrudService {
   }
 
   getProductoEdit(idProducto: string){
-    return this.firebase.collection('productos').doc(idProducto).get();
+    return  this.firebase.collection('productos').doc(idProducto).snapshotChanges();
   }
 
   agregarCuenta(cuenta: Cuenta){
     return this.firebase.collection('cuentas').add(cuenta);
 
+  }
+
+  obtenerCuentasPorProducto(idProducto:any): Observable<any>{
+    return this.firebase.collection('cuentas', ref => ref.where('idProducto', "==" , idProducto)).snapshotChanges();
   }
 
   obtenerCuentas(): Observable<any>{
@@ -165,6 +169,10 @@ export class CrudService {
   getVendedorEdit(idVendedor: string){
     return  this.firebase.collection('vendedores').doc(idVendedor).snapshotChanges();
   }
+
+  
+
+  
 
 
 

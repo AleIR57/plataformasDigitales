@@ -9,6 +9,7 @@
 
 <ion-content [scrollEvents]="true">
   <ion-card>
+    <img class = "logVenta" src = "https://uploadgerencie.com/imagenes/costo-de-venta.png">
     <form [formGroup] = "form" (ngSubmit) = "agregarVenta()">
 
     <ion-item>
@@ -48,11 +49,7 @@
   <ion-item>
     <ion-label>Cliente/s</ion-label>
     <ion-select cancelText="Cancelar" okText="Agregar" formControlName = "idCliente">
-      <ion-select-option value="olives">Black Olives</ion-select-option>
-      <ion-select-option value="xcheese">Extra Cheese</ion-select-option>
-      <ion-select-option value="peppers">Green Peppers</ion-select-option>
-      <ion-select-option value="mushrooms">Mushrooms</ion-select-option>
-      <ion-select-option value="Spinach">Spinach</ion-select-option>
+      <ion-select-option *ngFor = "let cliente of listClientes" value="{{cliente.nombre}}">{{cliente.nombre}}</ion-select-option>
     </ion-select>
   </ion-item>
 

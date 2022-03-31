@@ -85,6 +85,9 @@ export class InicioComponent implements OnInit {
     const modal = await this.modalController.create({
       component: ListarCuentasPorProductoPage,
       cssClass: 'my-suctom-class',
+      componentProps: {
+        idProducto: id,
+      }
      
     });
     return await modal.present();
@@ -126,7 +129,7 @@ export class InicioComponent implements OnInit {
       this.listGastos = [];
       doc.forEach(element => {
         this.listGastos.push({
-          idCliente: element.payload.doc.id,
+          idGasto: element.payload.doc.id,
           ...element.payload.doc.data(),
         })
           console.log(element.payload.doc.id);
@@ -141,7 +144,7 @@ export class InicioComponent implements OnInit {
       this.listProductos = [];
       doc.forEach(element => {
         this.listProductos.push({
-          idCliente: element.payload.doc.id,
+          idProducto: element.payload.doc.id,
           ...element.payload.doc.data(),
         })
           console.log(element.payload.doc.id);

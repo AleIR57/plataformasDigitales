@@ -37,6 +37,10 @@ const routes: Routes = [
     path: 'listar-cuentas-por-producto',
     loadChildren: () => import('./paginas/listar-cuentas-por-producto/listar-cuentas-por-producto.module').then( m => m.ListarCuentasPorProductoPageModule)
   },
+  {
+    path: 'crear-cuenta',
+    loadChildren: () => import('./paginas/crear-cuenta/crear-cuenta.module').then( m => m.CrearCuentaPageModule)
+  },
 ];
 
 @NgModule({

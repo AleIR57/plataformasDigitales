@@ -9,6 +9,7 @@
 
 <ion-content [scrollEvents]="true">
   <ion-card>
+    <img src = "https://opinae.com.br/wp-content/uploads/2020/10/5482-scaled.jpg">
     <form [formGroup] = "form" (ngSubmit) = "agregarCliente()">
 
     <ion-item>
@@ -19,6 +20,14 @@
   <ion-item>
     <ion-label position="floating">Whatsapp</ion-label>
     <ion-textarea type = "number" formControlName = "whatsapp"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Estado</ion-label>
+    <ion-select multiple="true" cancelText="Cancelar" okText="Agregar" formControlName = "estado">
+      <ion-select-option value="Activo">Activo</ion-select-option>
+      <ion-select-option value="Activo | Renovado">Renovado</ion-select-option>
+    </ion-select>
   </ion-item>
 
 
