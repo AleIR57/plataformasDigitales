@@ -1,3 +1,7 @@
+import { EditarPagoPage } from './../../paginas/editar-pago/editar-pago.page';
+import { EditarClientePage } from './../../paginas/editar-cliente/editar-cliente.page';
+import { first } from 'rxjs/operators';
+import { EditarVentaPage } from './../../paginas/editar-venta/editar-venta.page';
 import { ListarCuentasPorProductoPage } from './../../paginas/listar-cuentas-por-producto/listar-cuentas-por-producto.page';
 import { Vendedor } from './../../models/Vendedor';
 import { Producto } from './../../models/Producto';
@@ -26,6 +30,9 @@ export class InicioComponent implements OnInit {
   valorSegmento:any = 'Ventas';
   dinero: any;
   lastItem: any = [];
+  color: any = 'success';
+  variableDinero:any;
+  VENDEDOR: Vendedor;
 
   constructor(public modalController: ModalController, private crudService: CrudService) { }
 
@@ -48,6 +55,42 @@ export class InicioComponent implements OnInit {
       cssClass: 'my-suctom-class',
       componentProps: {
         idVenta: id,
+      }
+     
+    });
+    return await modal.present();
+  }
+
+  async editarVentaModal(id:any){
+    const modal = await this.modalController.create({
+      component: EditarVentaPage,
+      cssClass: 'my-suctom-class',
+      componentProps: {
+        idVenta: id,
+      }
+     
+    });
+    return await modal.present();
+  }
+
+  async editarClienteModal(id:any){
+    const modal = await this.modalController.create({
+      component: EditarClientePage,
+      cssClass: 'my-suctom-class',
+      componentProps: {
+        idCliente: id,
+      }
+     
+    });
+    return await modal.present();
+  }
+
+  async editarGastoModal(id:any){
+    const modal = await this.modalController.create({
+      component: EditarPagoPage,
+      cssClass: 'my-suctom-class',
+      componentProps: {
+        idGasto: id,
       }
      
     });
@@ -154,9 +197,9 @@ export class InicioComponent implements OnInit {
   }
 
 
-  eliminarVenta(id:any){
+  eliminarVenta(id:any, precioTotal:any){
     this.crudService.eliminarVenta(id).then(() =>{
-      
+      this.editarVentaVendedor(precioTotal);
     })
   }
 
@@ -166,9 +209,10 @@ export class InicioComponent implements OnInit {
     })
   }
 
-  eliminarGasto(id:any){
+  eliminarGasto(id:any, precioTotal:any){
     this.crudService.eliminarGasto(id).then(() =>{
       console.log(id);
+      this.editarGastoVendedor(precioTotal);
     })
   }
 
@@ -186,6 +230,14 @@ export class InicioComponent implements OnInit {
       this.listVendedor.push(doc.payload.data());
       for(let i = 0; i < this.listVendedor.length-1; i++){
         this.listVendedor.splice(i, 1);
+      
+      }
+
+      if(Number(this.listVendedor[0].dinero) >= 0){
+        this.color = 'success'
+      }
+      else if(Number(this.listVendedor[0].dinero) < 0){
+        this.color = 'warning'
       }
      
      
@@ -195,7 +247,72 @@ export class InicioComponent implements OnInit {
   }
 
 
+  editarGastoVendedor(precioTotal: any){
+    
 
+    this.crudService.getVendedorEdit('QmgFh25b48hS6eRifRGm').pipe(first()).subscribe(doc =>{
+      this.listVendedor.push(doc.payload.data());
+
+      for(let i = 0; i < this.listVendedor.length-1; i++){
+        this.listVendedor.splice(i, 1);
+      
+      }
+
+        this.variableDinero = String(precioTotal+Number(this.listVendedor[0].dinero));
+        console.log("Precio suma: " +this.variableDinero);
+     
+      
+      this.VENDEDOR = {
+        nombre: 'Alejandro',
+        whatsapp: '3122031469',
+        dinero: this.variableDinero,
+        fechaInicio: '30/03/2022',
+    
+     }
+     console.log("Precio: " + this.dinero)
+     this.crudService.editarVendedor('QmgFh25b48hS6eRifRGm', this.VENDEDOR);
+     
+    });
+
+    
+  
+   
+  }
+
+  editarVentaVendedor(precioTotal: any){
+    
+
+    this.crudService.getVendedorEdit('QmgFh25b48hS6eRifRGm').pipe(first()).subscribe(doc =>{
+      this.listVendedor.push(doc.payload.data());
+
+      for(let i = 0; i < this.listVendedor.length-1; i++){
+        this.listVendedor.splice(i, 1);
+      
+      }
+
+      this.variableDinero = String(Number(this.listVendedor[0].dinero)-precioTotal);
+      console.log("Precio suma: " +this.variableDinero);
+   
+      
+      
+     
+      
+      this.VENDEDOR = {
+        nombre: 'Alejandro',
+        whatsapp: '3122031469',
+        dinero: this.variableDinero,
+        fechaInicio: '30/03/2022',
+    
+     }
+     console.log("Precio: " + this.dinero)
+     this.crudService.editarVendedor('QmgFh25b48hS6eRifRGm', this.VENDEDOR);
+     
+    });
+
+    
+  
+   
+  }
   
 
 }

@@ -4,18 +4,19 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'inicio',
     pathMatch: 'full'
   },
   {
     path: 'inicio',
     component: InicioComponent
   },
+  {
+    path: 'home',
+    component: InicioComponent
+  },
+  
 
   {
     path: 'crear-venta',
@@ -40,6 +41,22 @@ const routes: Routes = [
   {
     path: 'crear-cuenta',
     loadChildren: () => import('./paginas/crear-cuenta/crear-cuenta.module').then( m => m.CrearCuentaPageModule)
+  },
+  {
+    path: 'editar-venta',
+    loadChildren: () => import('./paginas/editar-venta/editar-venta.module').then( m => m.EditarVentaPageModule)
+  },
+  {
+    path: 'editar-cliente',
+    loadChildren: () => import('./paginas/editar-cliente/editar-cliente.module').then( m => m.EditarClientePageModule)
+  },
+  {
+    path: 'editar-pago',
+    loadChildren: () => import('./paginas/editar-pago/editar-pago.module').then( m => m.EditarPagoPageModule)
+  },
+  {
+    path: 'desc-cuenta',
+    loadChildren: () => import('./paginas/desc-cuenta/desc-cuenta.module').then( m => m.DescCuentaPageModule)
   },
 ];
 

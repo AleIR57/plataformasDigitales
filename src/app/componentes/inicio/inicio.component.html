@@ -20,7 +20,7 @@
     </div>
     <div class = "logo" >
       <img src = "../../../assets/icon/logo.jpeg" >
-      <ion-label class = "saldo" *ngFor = "let vendedor of listVendedor">${{vendedor.dinero}}</ion-label>
+      <ion-label color = {{color}} *ngFor = "let vendedor of listVendedor">$ {{vendedor.dinero}}</ion-label>
     </div>
   
     <ion-label class = "ventas" *ngIf = "valorSegmento == 'Ventas'">Ventas</ion-label>
@@ -61,13 +61,13 @@
                 </ion-item>
 
                 <ion-item>
-                  <ion-label>Tipo de compra: <span color = "success">{{venta.tipo}}</span></ion-label>
+                  <ion-label>Tipo de compra: <span class = "ventaTipo">{{venta.tipo}}</span></ion-label>
 
                   <div class="item-note" slot = "end">
-                    <ion-button clear (click)="updateTask(i)" color = "dark">
+                    <ion-button clear (click)="editarVentaModal(venta.idVenta)" color = "dark">
                       <ion-icon name="create"></ion-icon>
                     </ion-button>
-                    <ion-button clear (click)="eliminarVenta(venta.idVenta)" color = "dark">
+                    <ion-button clear (click)="eliminarVenta(venta.idVenta, venta.precioTotal)" color = "dark">
                       <ion-icon name="trash"></ion-icon>
                     </ion-button>
                   </div>
@@ -104,8 +104,8 @@
         <ion-grid>
 
       
-        <ion-row *ngFor = "let producto of listProductos">
-          <ion-col >
+        <ion-row >
+          <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor = "let producto of listProductos" >
             <ion-card class="ion-activated" (click) = "openModalCuenta(producto.idProducto)">
               <ion-card-header>
                   <ion-card-title color = "secondary">{{producto.nombre}}</ion-card-title>
@@ -114,9 +114,9 @@
               </ion-card-header>
               <ion-card-content>
                 <ion-item>
-                    <img src = "{{producto.foto}}" class = "logoProducto">
-                   
-                </ion-item>
+                  <img src = "{{producto.foto}}" class = "logoProducto">
+                </ion-item>       
+                    
               </ion-card-content>
       
         
@@ -143,7 +143,7 @@
           <ion-item>
             <ion-label >Whatsapp: {{cliente.whatsapp}}</ion-label>
             <div class="item-note" slot = "end">
-              <ion-button clear (click)="updateTask(i)" color = "dark">
+              <ion-button clear (click)="editarClienteModal(cliente.idCliente)" color = "dark">
                 <ion-icon name="create"></ion-icon>
               </ion-button>
               <ion-button clear (click)="eliminarCliente(cliente.idCliente)" color = "dark">
@@ -179,10 +179,10 @@
                 <ion-item>
                   <ion-label>Tipo de compra: <span color = "success">{{gasto.tipo}}</span></ion-label>
                   <div class="item-note" slot = "end" color = "dark">
-                    <ion-button clear (click)="updateTask(i)">
+                    <ion-button clear (click)="editarGastoModal(gasto.idGasto)" color = "dark">
                       <ion-icon name="create"></ion-icon>
                     </ion-button>
-                    <ion-button clear (click)="eliminarGasto(gasto.id)" color = "dark">
+                    <ion-button clear (click)="eliminarGasto(gasto.idGasto, gasto.precioTotal)" color = "dark">
                       <ion-icon name="trash"></ion-icon>
                     </ion-button>
                   </div>

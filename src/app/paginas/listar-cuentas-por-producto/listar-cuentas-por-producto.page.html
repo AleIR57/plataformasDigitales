@@ -11,14 +11,23 @@
   <ion-fab  horizontal = "end" vertical = "bottom" slot = "fixed">
     <ion-fab-button (click) = "openModalCuenta(idProducto)"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
   </ion-fab>
-  <ion-list *ngFor = "let cuenta of listCuentas">
-    <ion-item >
-      <ion-label>{{cuenta.correo}}</ion-label>
+    <ion-card *ngFor = "let cuenta of listCuentas">
+      <ion-item >
+        <ion-card-header>
+          <ion-card-title>{{cuenta.correo}}</ion-card-title>
+        </ion-card-header>
+       
+  
+      </ion-item>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Fecha renovación: {{cuenta.fechaRenovacion * 1000 | date:'short'}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <span>Estado: </span><ion-label color = "success"> {{cuenta.estado}}</ion-label>
+        </ion-item>
+      </ion-card-content>
      
-
-    </ion-item>
-    <ion-item>
-      <ion-label>{{cuenta.fechaRenovacion * 1000 | date:'long'}}</ion-label>
-    </ion-item>
-  </ion-list>
+    </ion-card>
+   
 </ion-content>

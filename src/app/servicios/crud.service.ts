@@ -37,7 +37,7 @@ export class CrudService {
   }
 
   getVentaEdit(idVenta: string){
-    return this.firebase.collection('ventas').doc(idVenta).get();
+    return  this.firebase.collection('ventas').doc(idVenta).snapshotChanges();
   }
 
 
@@ -63,7 +63,7 @@ export class CrudService {
   }
 
   getClienteEdit(idCliente: string){
-    return this.firebase.collection('clientes').doc(idCliente).get();
+    return  this.firebase.collection('clientes').doc(idCliente).snapshotChanges();
   }
 
   agregarGasto(gasto: Gasto){
@@ -88,7 +88,7 @@ export class CrudService {
   }
 
   getGastoEdit(idGasto: string){
-    return this.firebase.collection('gastos').doc(idGasto).get();
+    return  this.firebase.collection('gastos').doc(idGasto).snapshotChanges();
   }
 
   agregarProducto(producto: Producto){

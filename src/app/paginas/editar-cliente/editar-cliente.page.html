@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editar cliente</ion-title>
+    <ion-buttons slot = "end">
+      <ion-icon (click) = "closeModal()" name = "close-circle"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true">
+  <ion-card>
+    <img src = "https://opinae.com.br/wp-content/uploads/2020/10/5482-scaled.jpg">
+    <form [formGroup] = "form" (ngSubmit) = "agregarCliente()">
+
+    <ion-item>
+      <ion-label position="floating" >Nombre</ion-label>
+      <ion-input formControlName = "nombre"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Whatsapp</ion-label>
+    <ion-textarea type = "number" formControlName = "whatsapp"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Estado</ion-label>
+    <ion-select multiple="true" cancelText="Cancelar" okText="Agregar" formControlName = "estado">
+      <ion-select-option value="Activo">Activo</ion-select-option>
+      <ion-select-option value="Activo | Renovado">Renovado</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+<ion-button type = "submit" expand = "block">Editar</ion-button>
+
+</form>
+
+</ion-card>
+</ion-content>

@@ -1,20 +1,18 @@
-import { Cliente } from './../../models/Cliente';
+import { first } from 'rxjs/operators';
 import { Vendedor } from './../../models/Vendedor';
-import { element } from 'protractor';
 import { CrudService } from './../../servicios/crud.service';
-import { Venta } from './../../models/Venta';
-import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { docData } from '@angular/fire/firestore';
-import { first } from 'rxjs/operators';
+import { Cliente } from './../../models/Cliente';
+import { Venta } from './../../models/Venta';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-crear-venta',
-  templateUrl: './crear-venta.page.html',
-  styleUrls: ['./crear-venta.page.scss'],
+  selector: 'app-editar-venta',
+  templateUrl: './editar-venta.page.html',
+  styleUrls: ['./editar-venta.page.scss'],
 })
-export class CrearVentaPage implements OnInit {
+export class EditarVentaPage implements OnInit {
 
   @Input() idVenta:any;
   form: FormGroup;
@@ -25,6 +23,7 @@ export class CrearVentaPage implements OnInit {
   variableDinero:any;
   VENDEDOR: Vendedor;
   listClientes: Cliente[] = [];
+  listVenta: any[] = [];
   constructor(public modalController: ModalController, private fb: FormBuilder, private crudService: CrudService) { 
     this.form = this.fb.group({
       codigoReferencia: generateRandomString(6),
@@ -39,11 +38,35 @@ export class CrearVentaPage implements OnInit {
       formaPago: [''],
       fechaExpiracion: new Date(new Date().setMonth(new Date().getMonth() + 1)),
     })
+  
+
+    
+  
+   
   }
+   
+  
 
   ngOnInit() {
     console.log(this.idVenta);
     this.obtenerClientes();
+    this.crudService.getVentaEdit(this.idVenta).pipe(first()).subscribe(doc =>{
+      this.listVenta.push(doc.payload.data());
+      this.form.patchValue({
+        codigoReferencia: this.listVenta[0].codigoReferencia,
+        cantidadPantallas: this.listVenta[0].cantidadPantallas,
+        correos: this.listVenta[0].correos,
+        productos: this.listVenta[0].productos,
+        idCliente: this.listVenta[0].idCliente,
+        plataforma: this.listVenta[0].plataforma,
+        precioTotal: this.listVenta[0].precioTotal,
+        tipo: this.listVenta[0].tipo,
+        fechaInicio: this.listVenta[0].fechaInicio,
+        formaPago: this.listVenta[0].formaPago,
+        fechaExpiracion: this.listVenta[0].fechaExpiracion,
+      })
+    
+    });
     
     
   }
@@ -86,41 +109,14 @@ export class CrearVentaPage implements OnInit {
   
    
    console.log(VENTA);
-   this.crudService.agregarVenta(VENTA).then(() =>{
+   this.crudService.editarVenta(this.idVenta, VENTA).then(() =>{
      console.log("Venta registrada");
-     this.editarVendedor();
      this.modalController.dismiss();
    }, error =>{
      console.log(error);
    })
   }
 
-  editarVendedor(){
-    
-
-    this.crudService.getVendedorEdit('QmgFh25b48hS6eRifRGm').pipe(first()).subscribe(doc =>{
-      this.listVendedor.push(doc.payload.data());
-      this.dinero = Number(this.listVendedor[0].dinero);
-      
-      this.variableDinero = String(this.dinero+Number(this.form.value.precioTotal));
-      console.log("Precio resta: " +this.variableDinero)
-      
-      this.VENDEDOR = {
-        nombre: 'Alejandro',
-        whatsapp: '3122031469',
-        dinero: this.variableDinero,
-        fechaInicio: '30/03/2022',
-    
-     }
-     console.log("Precio: " + this.dinero)
-     this.crudService.editarVendedor('QmgFh25b48hS6eRifRGm', this.VENDEDOR);
-     
-    });
-
-    
-  
-   
-  }
 
   
 
@@ -142,7 +138,5 @@ const displayRandomString = () =>{
  let randomStringContainer = document.getElementById('random_string'); 
   randomStringContainer.innerHTML =  generateRandomString(8);    
 }
-
-
 
 

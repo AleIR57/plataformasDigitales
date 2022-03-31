@@ -1,17 +1,17 @@
-import { Vendedor } from './../../models/Vendedor';
 import { Gasto } from './../../models/Gasto';
-import { CrudService } from 'src/app/servicios/crud.service';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
-import { Component, OnInit, Input } from '@angular/core';
 import { first } from 'rxjs/operators';
+import { CrudService } from 'src/app/servicios/crud.service';
+import { ModalController } from '@ionic/angular';
+import { Vendedor } from './../../models/Vendedor';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-crear-gasto',
-  templateUrl: './crear-gasto.page.html',
-  styleUrls: ['./crear-gasto.page.scss'],
+  selector: 'app-editar-pago',
+  templateUrl: './editar-pago.page.html',
+  styleUrls: ['./editar-pago.page.scss'],
 })
-export class CrearGastoPage implements OnInit {
+export class EditarPagoPage implements OnInit {
 
   @Input() idGasto:any;
   form: FormGroup;
@@ -21,6 +21,7 @@ export class CrearGastoPage implements OnInit {
   dinero:any;
   variableDinero:any;
   VENDEDOR: Vendedor;
+  listGasto: any[] = [];
   constructor(public modalController: ModalController, private fb: FormBuilder, private crudService: CrudService) { 
     this.form = this.fb.group({
       codigoReferencia: generateRandomString(6),
@@ -33,17 +34,38 @@ export class CrearGastoPage implements OnInit {
       formaPago: [''],
       fechaExpiracion: new Date(new Date().setMonth(new Date().getMonth() + 1)),
     })
+  
+
+   
   }
+   
+  
 
   ngOnInit() {
     console.log(this.idGasto);
-  
+    this.crudService.getGastoEdit(this.idGasto).pipe(first()).subscribe(doc =>{
+      this.listGasto.push(doc.payload.data());
+      this.form.patchValue({
+        codigoReferencia: this.listGasto[0].codigoReferencia,
+        cantidadPantallas: this.listGasto[0].cantidadPantallas,
+        correos: this.listGasto[0].correos,
+        productos: this.listGasto[0].productos,
+        plataforma: this.listGasto[0].plataforma,
+        precioTotal: this.listGasto[0].precioTotal,
+        fechaInicio: this.listGasto[0].fechaInicio,
+        formaPago: this.listGasto[0].formaPago,
+        fechaExpiracion: this.listGasto[0].fechaExpiracion,
+      })
+    
+    });
+    
     
   }
 
   closeModal(){
     this.modalController.dismiss();
   }
+
 
  
   
@@ -62,47 +84,18 @@ export class CrearGastoPage implements OnInit {
   
    
    console.log(GASTO);
-   this.crudService.agregarGasto(GASTO).then(() =>{
-     console.log("Gasto registrada");
-     
+   this.crudService.editarGasto(this.idGasto, GASTO).then(() =>{
+     console.log("Gasto registrado");
      this.modalController.dismiss();
-     this.editarVendedor();
    }, error =>{
      console.log(error);
    })
   }
 
-  editarVendedor(){
-    
 
-    this.crudService.getVendedorEdit('QmgFh25b48hS6eRifRGm').pipe(first()).subscribe(doc =>{
-      this.listVendedor.push(doc.payload.data());
-      this.dinero = Number(this.listVendedor[0].dinero);
-      
-      this.variableDinero = String(this.dinero-Number(this.form.value.precioTotal));
-      console.log("Precio resta: " +this.variableDinero)
-      
-      this.VENDEDOR = {
-        nombre: 'Alejandro',
-        whatsapp: '3122031469',
-        dinero: this.variableDinero,
-        fechaInicio: '30/03/2022',
-    
-     }
-     console.log("Precio: " + this.dinero)
-     this.crudService.editarVendedor('QmgFh25b48hS6eRifRGm', this.VENDEDOR);
-     
-    });
-
-    
-  
-   
-  }
   
 
 }
-
-
 
 
 const  generateRandomString = (num) => {
@@ -120,4 +113,5 @@ const displayRandomString = () =>{
  let randomStringContainer = document.getElementById('random_string'); 
   randomStringContainer.innerHTML =  generateRandomString(8);    
 }
+
 
