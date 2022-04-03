@@ -1,3 +1,4 @@
+import { DescVentaPage } from './../../paginas/desc-venta/desc-venta.page';
 import { EditarPagoPage } from './../../paginas/editar-pago/editar-pago.page';
 import { EditarClientePage } from './../../paginas/editar-cliente/editar-cliente.page';
 import { first } from 'rxjs/operators';
@@ -130,6 +131,18 @@ export class InicioComponent implements OnInit {
       cssClass: 'my-suctom-class',
       componentProps: {
         idProducto: id,
+      }
+     
+    });
+    return await modal.present();
+  }
+
+  async openModalDescVenta(id:any){
+    const modal = await this.modalController.create({
+      component: DescVentaPage,
+      cssClass: 'my-suctom-class',
+      componentProps: {
+        idVenta: id,
       }
      
     });

@@ -50,12 +50,12 @@
   <ion-content *ngIf = "valorSegmento == 'Ventas'">
     <div class = "main_content_div">
       <span  >
-        <ion-card class="ion-activated" *ngFor = "let venta of listVentas">
+        <ion-card  class="ion-activated" *ngFor = "let venta of listVentas">
               <ion-card-header>
                 <ion-card-subtitle>{{venta.codigoReferencia}}</ion-card-subtitle>
                 <ion-card-title color = "secondary">{{venta.productos}}</ion-card-title>
               </ion-card-header>
-              <ion-card-content>
+              <ion-card-content (click) = "openModalDescVenta(venta.idVenta)">
                 <ion-item>
                   <ion-label>Forma de pago: {{venta.formaPago}}</ion-label>
                 </ion-item>
@@ -149,7 +149,11 @@
               <ion-button clear (click)="eliminarCliente(cliente.idCliente)" color = "dark">
                 <ion-icon name="trash"></ion-icon>
               </ion-button>
+              
             </div>
+          </ion-item>
+          <ion-item>
+            <ion-label >Estado: {{cliente.estado}}</ion-label>
           </ion-item>
         </ion-card-content>
 

@@ -58,6 +58,10 @@ const routes: Routes = [
     path: 'desc-cuenta',
     loadChildren: () => import('./paginas/desc-cuenta/desc-cuenta.module').then( m => m.DescCuentaPageModule)
   },
+  {
+    path: 'desc-venta',
+    loadChildren: () => import('./paginas/desc-venta/desc-venta.module').then( m => m.DescVentaPageModule)
+  },
 ];
 
 @NgModule({

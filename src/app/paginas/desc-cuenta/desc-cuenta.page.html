@@ -1,9 +1,72 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>descCuenta</ion-title>
+    <ion-title>Descripción de la cuenta</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Correo: {{correo}}
+      </ion-card-title>
+      <ion-card-subtitle>
+        Contraseña: {{contrasena}}
+      </ion-card-subtitle>
+     
+      <ion-card-content>
+        <form [formGroup] = "form" (ngSubmit) = "agregarUsuarioAPerfil()">
+          <ion-list>
+
+ 
+        <ion-item>
+          <img src = "../../../assets/icon/Perfil 1.JPG">
+          <ion-label>PERFIL 1, {{pinPerfil1}}</ion-label>
+          <ion-select cancelText="Cancelar" okText="Agregar" formControlName = "clientePerfil1" multiple="true">
+            <ion-select-option *ngFor = "let cliente of listClientes" value="{{cliente.nombre}}">{{cliente.nombre}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <img src = "../../../assets/icon/Perfil 2.JPG">
+          <ion-label>PERFIL 2, {{pinPerfil2}}</ion-label>
+          <ion-select cancelText="Cancelar" okText="Agregar" formControlName = "clientePerfil2" multiple="true">
+            <ion-select-option *ngFor = "let cliente of listClientes" value="{{cliente.nombre}}">{{cliente.nombre}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <img src = "../../../assets/icon/Perfil 3.JPG">
+          <ion-label>PERFIL 3, {{pinPerfil3}}</ion-label>
+          <ion-select cancelText="Cancelar" okText="Agregar" formControlName = "clientePerfil3" multiple="true">
+            <ion-select-option *ngFor = "let cliente of listClientes" value="{{cliente.nombre}}">{{cliente.nombre}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <img src = "../../../assets/icon/Perfil 4.JPG">
+          <ion-label>PERFIL 4, {{pinPerfil4}}</ion-label>
+          <ion-select cancelText="Cancelar" okText="Agregar" formControlName = "clientePerfil4" multiple="true">
+            <ion-select-option *ngFor = "let cliente of listClientes" value="{{cliente.nombre}}">{{cliente.nombre}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <img src = "../../../assets/icon/Perfil 5.JPG">
+          <ion-label>PERFIL 5, {{pinPerfil5}}</ion-label>
+          <ion-select cancelText="Cancelar" okText="Agregar" formControlName = "clientePerfil5" multiple="true">
+            <ion-select-option *ngFor = "let cliente of listClientes" value="{{cliente.nombre}}">{{cliente.nombre}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <ion-button type = "submit">Agregar</ion-button>
+      </form>
+      </ion-card-content>
+
+    </ion-card-header>
+    
+    
+  </ion-card>
+ 
 
 </ion-content>

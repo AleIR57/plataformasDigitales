@@ -21,7 +21,7 @@ export class CrudService {
   }
 
   obtenerVentas(): Observable<any>{
-    return this.firebase.collection('ventas', ref => ref.orderBy('fechaInicio', 'desc')).snapshotChanges();
+    return this.firebase.collection('ventas', ref => ref.orderBy('fechaInicio', 'desc').limit(10)).snapshotChanges();
   }
 
   eliminarVenta(id: string): Promise<any>{
@@ -47,7 +47,7 @@ export class CrudService {
   }
 
   obtenerClientes(): Observable<any>{
-    return this.firebase.collection('clientes', ref => ref.orderBy('fechaInicio', 'desc')).snapshotChanges();
+    return this.firebase.collection('clientes', ref => ref.orderBy('fechaInicio', 'desc').limit(10)).snapshotChanges();
   }
 
   eliminarCliente(id: string): Promise<any>{
@@ -72,7 +72,7 @@ export class CrudService {
   }
 
   obtenerGastos(): Observable<any>{
-    return this.firebase.collection('gastos', ref => ref.orderBy('fechaInicio', 'desc')).snapshotChanges();
+    return this.firebase.collection('gastos', ref => ref.orderBy('fechaInicio', 'desc').limit(10)).snapshotChanges();
   }
 
   eliminarGasto(id: string): Promise<any>{
@@ -137,12 +137,20 @@ export class CrudService {
    return this.firebase.collection('cuentas').doc(id).update(cuenta);
   }
 
+  editarCuentaPerfiles(id: string, cuenta:any): Promise<any>{
+    return this.firebase.collection('cuentas/'+id+'/clientes').add(cuenta);
+   }
+
   addCuentaEdit(cuenta: Cuenta){
     this.venta$.next(cuenta);
   }
 
   getCuentaEdit(idCuenta: string){
-    return this.firebase.collection('productos').doc(idCuenta).get();
+    return this.firebase.collection('cuentas').doc(idCuenta).snapshotChanges();
+  }
+
+  getCuentaEditClientes(idCuenta: string, idCliente){
+    return this.firebase.collection('cuentas'+idCuenta+'/clientes/'+idCliente).doc(idCliente).snapshotChanges();
   }
 
   agregarVendedor(vendedor: Vendedor){

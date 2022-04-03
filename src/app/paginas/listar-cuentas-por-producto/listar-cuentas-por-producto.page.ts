@@ -1,3 +1,4 @@
+import { DescCuentaPage } from './../desc-cuenta/desc-cuenta.page';
 import { CrearCuentaPage } from './../crear-cuenta/crear-cuenta.page';
 import { ModalController } from '@ionic/angular';
 import { Producto } from './../../models/Producto';
@@ -49,6 +50,19 @@ export class ListarCuentasPorProductoPage implements OnInit {
       });
     })
   }
+
+  async openModalDescCuenta(id:any){
+    const modal = await this.modalController.create({
+      component: DescCuentaPage,
+      cssClass: 'my-suctom-class',
+      componentProps: {
+        idCuenta: id,
+      }
+     
+    });
+    return await modal.present();
+  }
+
 
   
   closeModal(){
