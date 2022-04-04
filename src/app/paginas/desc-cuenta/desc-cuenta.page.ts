@@ -6,6 +6,7 @@ import { CrudService } from './../../servicios/crud.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Component, OnInit, Input } from '@angular/core';
+import { documentId } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-desc-cuenta',
@@ -32,7 +33,7 @@ export class DescCuentaPage implements OnInit {
   pinPerfil4: any;
   pinPerfil5: any;
   listClientes: Cliente[] = [];
-  idClientes:any;
+  idClientes:any = '';
   listClientesPerfil: any[] =[];
   constructor(public modalController: ModalController, private fb: FormBuilder, private crudService: CrudService) { 
  
@@ -43,7 +44,13 @@ export class DescCuentaPage implements OnInit {
   
 
   ngOnInit() {
-    
+    this.form = this.fb.group({
+      clientePerfil1: [''],
+      clientePerfil2: [''],
+      clientePerfil3: [''],
+      clientePerfil4: [''],
+      clientePerfil5: [''],
+    })
     
     this.obtenerClientes();
     console.log(this.idCuenta);
@@ -57,22 +64,33 @@ export class DescCuentaPage implements OnInit {
         this.pinPerfil3 = this.listCuenta[0].pinPerfil3;
         this.pinPerfil4 = this.listCuenta[0].pinPerfil4;
         this.pinPerfil5 = this.listCuenta[0].pinPerfil5;
-        this.idClientes = this.listCuenta[0].clientes;
-        console.log(this.idClientes);
+      
+    
+       
     
     });
 
-    this.crudService.getCuentaEditClientes(this.idCuenta, this.idClientes).pipe(first()).subscribe(doc =>{
-      this.listClientesPerfil.push(doc.payload.data())
-      this.form = this.fb.group({
-        clientePerfil1: this.listClientesPerfil[0].clientePerfil1,
-        clientePerfil2: this.listClientesPerfil[0].clientePerfil2,
-        clientePerfil3: this.listClientesPerfil[0].clientePerfil3,
-        clientePerfil4: this.listClientesPerfil[0].clientePerfil4,
-        clientePerfil5: this.listClientesPerfil[0].clientePerfil5,
-      })
-    
+    this.crudService.getCodigoCuentaEditClientes(this.idCuenta).pipe(first()).subscribe(doc =>{
+      this.idClientes = doc[0].payload.doc.id;
+      console.log(this.idClientes);
+      
+this.crudService.getCuentaEditClientes(this.idCuenta, 
+  this.idClientes).pipe(first()).subscribe(doc =>{
+  this.listClientesPerfil.push(doc.payload.data());
+  this.form.patchValue({
+    clientePerfil1: this.listClientesPerfil[0].clientePerfil1,
+    clientePerfil2: this.listClientesPerfil[0].clientePerfil2,
+    clientePerfil3: this.listClientesPerfil[0].clientePerfil3,
+    clientePerfil4: this.listClientesPerfil[0].clientePerfil4,
+    clientePerfil5: this.listClientesPerfil[0].clientePerfil5,
+
+  })
+
+});
+
     });
+
+    
     console.log(this.form.value);
     
     
@@ -101,12 +119,24 @@ export class DescCuentaPage implements OnInit {
       clientePerfil5: this.form.value.clientePerfil5,
    }
 
-   this.crudService.editarCuentaPerfiles(this.idCuenta, USUARIOPERFIL).then(() =>{
-    console.log("Perfiles registrados");
-    this.modalController.dismiss();
-  }, error =>{
-    console.log(error);
-  })
+   if(this.idClientes == ''){
+    this.crudService.agregarCuentaPerfiles(this.idCuenta, USUARIOPERFIL).then(() =>{
+      console.log("Perfiles registrados");
+      this.modalController.dismiss();
+    }, error =>{
+      console.log(error);
+    })
+   }
+   else if(this.idClientes != ''){
+    this.crudService.editarCuentaPerfiles(this.idCuenta, USUARIOPERFIL, this.idClientes).then(() =>{
+      console.log("Perfiles modificados");
+      this.modalController.dismiss();
+    }, error =>{
+      console.log(error);
+    })
+   }
+
+   
 
   }
 

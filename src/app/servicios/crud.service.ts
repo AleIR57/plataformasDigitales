@@ -137,9 +137,14 @@ export class CrudService {
    return this.firebase.collection('cuentas').doc(id).update(cuenta);
   }
 
-  editarCuentaPerfiles(id: string, cuenta:any): Promise<any>{
+  agregarCuentaPerfiles(id: string, cuenta:any): Promise<any>{
     return this.firebase.collection('cuentas/'+id+'/clientes').add(cuenta);
    }
+
+   editarCuentaPerfiles(id: string, cuenta:any, idCliente: any): Promise<any>{
+    return this.firebase.collection('cuentas/'+id+'/clientes').doc(idCliente).update(cuenta);
+   }
+
 
   addCuentaEdit(cuenta: Cuenta){
     this.venta$.next(cuenta);
@@ -149,8 +154,12 @@ export class CrudService {
     return this.firebase.collection('cuentas').doc(idCuenta).snapshotChanges();
   }
 
+  getCodigoCuentaEditClientes(idCuenta: string){
+    return this.firebase.collection('cuentas/'+idCuenta+'/clientes').snapshotChanges();
+  }
+
   getCuentaEditClientes(idCuenta: string, idCliente){
-    return this.firebase.collection('cuentas'+idCuenta+'/clientes/'+idCliente).doc(idCliente).snapshotChanges();
+    return this.firebase.collection('cuentas/'+idCuenta+'/clientes').doc(idCliente).snapshotChanges();
   }
 
   agregarVendedor(vendedor: Vendedor){
