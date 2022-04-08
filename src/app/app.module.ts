@@ -1,3 +1,4 @@
+import { ApartadoMediosPage } from './paginas/apartado-medios/apartado-medios.page';
 import { DescVentaPage } from './paginas/desc-venta/desc-venta.page';
 import { DescCuentaPage } from './paginas/desc-cuenta/desc-cuenta.page';
 import { EditarPagoPage } from './paginas/editar-pago/editar-pago.page';
@@ -34,7 +35,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 
 
 @NgModule({
-  declarations: [AppComponent, InicioComponent, CrearVentaPage, CrearClientePage, CrearGastoPage, CrearProductoPage, ListarCuentasPorProductoPage, CrearCuentaPage, EditarVentaPage, EditarClientePage, EditarPagoPage, DescCuentaPage, DescVentaPage],
+  declarations: [AppComponent, InicioComponent, CrearVentaPage, CrearClientePage, CrearGastoPage, CrearProductoPage, ListarCuentasPorProductoPage, CrearCuentaPage, EditarVentaPage, EditarClientePage, EditarPagoPage, DescCuentaPage, DescVentaPage, ApartadoMediosPage],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, provideFirebaseApp(() => initializeApp(firebaseConfig)), provideAnalytics(() => getAnalytics()), provideAuth(() => getAuth()), provideDatabase(() => getDatabase()), provideFirestore(() => getFirestore()), provideFunctions(() => getFunctions()), provideMessaging(() => getMessaging()), providePerformance(() => getPerformance()), provideRemoteConfig(() => getRemoteConfig()), provideStorage(() => getStorage()), ReactiveFormsModule, FormsModule, AngularFireModule.initializeApp(firebaseConfig)],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, ScreenTrackingService,UserTrackingService],

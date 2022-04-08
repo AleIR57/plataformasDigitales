@@ -62,6 +62,10 @@ const routes: Routes = [
     path: 'desc-venta',
     loadChildren: () => import('./paginas/desc-venta/desc-venta.module').then( m => m.DescVentaPageModule)
   },
+  {
+    path: 'apartado-medios',
+    loadChildren: () => import('./paginas/apartado-medios/apartado-medios.module').then( m => m.ApartadoMediosPageModule)
+  },
 ];
 
 @NgModule({

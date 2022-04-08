@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Medios de pago</ion-title>
+    <ion-buttons slot = "end">
+      <ion-icon (click) = "closeModal()" name = "close-circle"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <div>
+   
+  </div>
+  <div class = "imagen">
+    <ion-card>
+      <ion-card-header>
+
+    
+      <ion-card-title>
+          {{listMedios[1].Nombre}}
+      </ion-card-title>
+      <ion-card-subtitle>
+        $ {{listMedios[1].Dinero}}
+    </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <img src = "../../../assets/icon/Nequi.JPG">
+    </ion-card-content>
+    </ion-card>
+ 
+  </div>
+
+  <div class = "imagen">
+    <ion-card>
+      <ion-card-header>
+
+    
+      <ion-card-title>
+          {{listMedios[0].Nombre}}
+      </ion-card-title>
+      <ion-card-subtitle>
+        $ {{listMedios[0].Dinero}}
+    </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <img src = "../../../assets/icon/Bancolombia.JPG">
+    </ion-card-content>
+    </ion-card>
+
+
+  </div>
+  
+
+  <div class = "imagen">
+    <ion-card>
+      <ion-card-header>
+  
+    
+      <ion-card-title>
+          {{listMedios[3].Nombre}}
+      </ion-card-title>
+      <ion-card-subtitle>
+        $ {{listMedios[3].Dinero}}
+    </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <img src = "../../../assets/icon/Davivienda.JPG">
+    </ion-card-content>
+    </ion-card>
+  </div>
+
+  
+  <div class = "imagen">
+    <ion-card>
+      <ion-card-header>
+  
+    
+      <ion-card-title>
+          {{listMedios[4].Nombre}}
+      </ion-card-title>
+      <ion-card-subtitle>
+        $ {{listMedios[4].Dinero}}
+    </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <img src = "../../../assets/icon/Movii.JPG">
+    </ion-card-content>
+    </ion-card>
+    
+  </div>
+
+  <div class = "imagen">
+    <ion-card>
+      <ion-card-header>
+  
+    
+      <ion-card-title>
+          {{listMedios[2].Nombre}}
+      </ion-card-title>
+      <ion-card-subtitle>
+        $ {{listMedios[2].Dinero}}
+    </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <img src = "../../../assets/icon/Giro.png">
+    </ion-card-content>
+    </ion-card>
+   
+  </div>
+
+
+
+
+</ion-content>

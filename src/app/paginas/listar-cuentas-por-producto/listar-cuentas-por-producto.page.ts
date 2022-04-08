@@ -45,7 +45,7 @@ export class ListarCuentasPorProductoPage implements OnInit {
           idCuenta: element.payload.doc.id,
           ...element.payload.doc.data(),
         })
-        
+         
           console.log(element.payload.doc.id);
           console.log(element.payload.doc.data())
       });

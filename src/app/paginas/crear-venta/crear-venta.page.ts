@@ -22,9 +22,13 @@ export class CrearVentaPage implements OnInit {
   id: string | undefined;
   listVendedor: any[] = [];
   dinero:any;
+  dineroMedio:any;
   variableDinero:any;
+  variableDineroMedio:any;
   VENDEDOR: Vendedor;
   listClientes: Cliente[] = [];
+  listMedios: any[] = [];
+  MEDIO: any;
   constructor(public modalController: ModalController, private fb: FormBuilder, private crudService: CrudService) { 
     this.form = this.fb.group({
       codigoReferencia: generateRandomString(6),
@@ -37,7 +41,7 @@ export class CrearVentaPage implements OnInit {
       tipo: new FormControl('Nueva'),
       fechaInicio: new Date(),
       formaPago: [''],
-      fechaExpiracion: new Date(new Date().setMonth(new Date().getMonth() + 1)),
+      fechaExpiracion: [''],
     })
   }
 
@@ -50,6 +54,21 @@ export class CrearVentaPage implements OnInit {
 
   closeModal(){
     this.modalController.dismiss();
+  }
+
+  obtenerMedios(){
+    this.crudService.obtenerMedios().subscribe(doc =>{
+      
+      this.listMedios = [];
+      doc.forEach(element => {
+        this.listMedios.push({
+          idMedio: element.payload.doc.id,
+          ...element.payload.doc.data(),
+        })
+
+       
+      });
+    })
   }
 
   obtenerClientes(){
@@ -96,7 +115,7 @@ export class CrearVentaPage implements OnInit {
   }
 
   editarVendedor(){
-    
+    let variableMedio = '';
 
     this.crudService.getVendedorEdit('QmgFh25b48hS6eRifRGm').pipe(first()).subscribe(doc =>{
       this.listVendedor.push(doc.payload.data());
@@ -114,6 +133,41 @@ export class CrearVentaPage implements OnInit {
      }
      console.log("Precio: " + this.dinero)
      this.crudService.editarVendedor('QmgFh25b48hS6eRifRGm', this.VENDEDOR);
+     
+    });
+
+    if(this.form.value.formaPago == 'Nequi'){
+      variableMedio = 'EBbKeVcigRBGBRE9WOyV';
+    }
+    else if(this.form.value.formaPago == 'Bancolombia'){
+      variableMedio = '8S1SVm7MJQaBxUNohR9T';
+    }
+    else if(this.form.value.formaPago == 'Daviplata'){
+      variableMedio = 'wAovBxzhYMz4r7O89UQp';
+    }
+    else if(this.form.value.formaPago == 'Movii'){
+      variableMedio = 'wi8QYpSa7Xuu7BKtlQSu';
+    }
+    else if(this.form.value.formaPago == 'Giro'){
+      variableMedio = 'jrarrZcWjXHKGWS48yml';
+    }
+
+    console.log(variableMedio);
+
+    this.crudService.getMedioEdit(variableMedio).pipe(first()).subscribe(doc =>{
+      this.listMedios.push(doc.payload.data());
+      this.dineroMedio = Number(this.listMedios[0].Dinero);
+      
+      this.variableDineroMedio = String(this.dineroMedio+Number(this.form.value.precioTotal));
+      console.log("Precio resta: " +this.variableDineroMedio)
+      
+      this.MEDIO = {
+        Nombre: this.form.value.formaPago,
+        Dinero: this.variableDineroMedio,
+    
+     }
+     console.log("Precio: " + this.dineroMedio)
+     this.crudService.editarMedio(variableMedio, this.MEDIO);
      
     });
 

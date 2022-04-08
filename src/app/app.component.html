@@ -34,15 +34,13 @@
 
 
 <ion-menu side="start" menuId="first" contentId="main">
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Plataformas digitales</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class = "header">
+    <ion-label>Plataformas digitales</ion-label>
+  </div>
   <ion-content>
     <ion-list>
-      <ion-item>Plataformas de pago</ion-item>
-      <ion-item>Cronómetro de demos</ion-item>
+      <ion-item><ion-icon name="card-outline"></ion-icon><ion-label class = "label" (click) = "openModal()"> Plataformas de pago</ion-label></ion-item>
+      <ion-item><ion-icon name="stopwatch-outline"></ion-icon><ion-label class = "label"> Cronómetro de demos </ion-label></ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>

@@ -1,3 +1,5 @@
+import { ModalController } from '@ionic/angular';
+import { ApartadoMediosPage } from './paginas/apartado-medios/apartado-medios.page';
 import { AuthService } from './servicios/auth.service';
 import { Component } from '@angular/core';
 
@@ -15,7 +17,7 @@ export class AppComponent {
     password: ''
   }
 
-  constructor( private authService: AuthService) {
+  constructor( private authService: AuthService, public modalController: ModalController) {
     this.obtenerUsuarioLogeado();
   }
 
@@ -45,6 +47,18 @@ export class AppComponent {
 
   logout(){
     this.authService.logout();
+  }
+
+  async openModal(id:any){
+    const modal = await this.modalController.create({
+      component: ApartadoMediosPage,
+      cssClass: 'my-suctom-class',
+      componentProps: {
+        idVenta: id,
+      }
+     
+    });
+    return await modal.present();
   }
 
 }

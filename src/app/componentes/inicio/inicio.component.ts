@@ -34,6 +34,7 @@ export class InicioComponent implements OnInit {
   color: any = 'success';
   variableDinero:any;
   VENDEDOR: Vendedor;
+  cantidadVentas: any;
 
   constructor(public modalController: ModalController, private crudService: CrudService) { }
 
@@ -47,7 +48,20 @@ export class InicioComponent implements OnInit {
 
   segmentChanged(event:any){
     this.valorSegmento = event.detail.value;
-    console.log(this.valorSegmento);
+   
+  }
+
+  loadDataVentas(event) {
+    /*setTimeout(() => {
+      console.log('Done');
+      event.target.complete();
+
+      // App logic to determine if all data is loaded
+      // and disable the infinite scroll
+      if (data.length === 1000) {
+        event.target.disabled = true;
+      }
+    }, 500);*/
   }
   
   async openModal(id:any){
@@ -158,10 +172,10 @@ export class InicioComponent implements OnInit {
           idVenta: element.payload.doc.id,
           ...element.payload.doc.data(),
         })
-          console.log(element.payload.doc.id);
-          console.log(element.payload.doc.data())
+          
       });
     })
+    this.cantidadVentas = this.listVentas.length;
   }
 
   obtenerClientes(){
@@ -173,8 +187,8 @@ export class InicioComponent implements OnInit {
           idCliente: element.payload.doc.id,
           ...element.payload.doc.data(),
         })
-          console.log(element.payload.doc.id);
-          console.log(element.payload.doc.data())
+
+       
       });
     })
   }
@@ -188,8 +202,7 @@ export class InicioComponent implements OnInit {
           idGasto: element.payload.doc.id,
           ...element.payload.doc.data(),
         })
-          console.log(element.payload.doc.id);
-          console.log(element.payload.doc.data())
+         
       });
     })
   }
@@ -203,8 +216,7 @@ export class InicioComponent implements OnInit {
           idProducto: element.payload.doc.id,
           ...element.payload.doc.data(),
         })
-          console.log(element.payload.doc.id);
-          console.log(element.payload.doc.data())
+         
       });
     })
   }
@@ -224,7 +236,7 @@ export class InicioComponent implements OnInit {
 
   eliminarGasto(id:any, precioTotal:any){
     this.crudService.eliminarGasto(id).then(() =>{
-      console.log(id);
+ 
       this.editarGastoVendedor(precioTotal);
     })
   }
@@ -239,7 +251,6 @@ export class InicioComponent implements OnInit {
 
   obtenerVendedor(){
     this.crudService.getVendedorEdit('QmgFh25b48hS6eRifRGm').subscribe(doc =>{
-      console.log(doc);
       this.listVendedor.push(doc.payload.data());
       for(let i = 0; i < this.listVendedor.length-1; i++){
         this.listVendedor.splice(i, 1);
@@ -253,8 +264,6 @@ export class InicioComponent implements OnInit {
         this.color = 'warning'
       }
      
-     
-      console.log(this.listVendedor);
      
     });
   }
@@ -323,9 +332,15 @@ export class InicioComponent implements OnInit {
     });
 
     
+
+    
   
    
   }
+
+
+  
+  
   
 
 }

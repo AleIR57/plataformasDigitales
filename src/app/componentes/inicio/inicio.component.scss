@@ -32,6 +32,7 @@
 
 .main-content-div{
     padding: 16px;
+    margin-bottom: 30%;
     ion-label{
         display: block;
     }
@@ -99,4 +100,12 @@ ion-icon{
 
 .ventaTipo{
     color: lightgreen;
+}
+
+ion-grid{
+    margin-bottom: 15%;
+}
+
+ion-fab-button{
+    --background: linear-gradient(to right, #243949, #517fa4);;
 }

@@ -24,7 +24,7 @@ export class EditarVentaPage implements OnInit {
   VENDEDOR: Vendedor;
   listClientes: Cliente[] = [];
   listVenta: any[] = [];
-  fechaInicio:any;
+  fechaExpiracion:any;
   constructor(public modalController: ModalController, private fb: FormBuilder, private crudService: CrudService) { 
     this.form = this.fb.group({
       codigoReferencia: generateRandomString(6),
@@ -66,7 +66,7 @@ export class EditarVentaPage implements OnInit {
         formaPago: this.listVenta[0].formaPago,
         fechaExpiracion: this.listVenta[0].fechaExpiracion,
       })
-      this.fechaInicio = new Date(this.listVenta[0].fechaInicio*1000);
+      this.fechaExpiracion = new Date(this.listVenta[0].fechaExpiracion);
     
     });
     

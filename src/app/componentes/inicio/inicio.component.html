@@ -6,6 +6,7 @@
         <ion-button slot = "start" fill = "clear" size = "small">
           <ion-menu-button autoHide = "true"><ion-icon name = "menu-outline" ></ion-icon></ion-menu-button>
         </ion-button>
+        
       </div>
 
       <div>
@@ -50,9 +51,9 @@
   <ion-content *ngIf = "valorSegmento == 'Ventas'">
     <div class = "main_content_div">
       <span  >
-        <ion-card  class="ion-activated" *ngFor = "let venta of listVentas">
+        <ion-card  class="ion-activated" *ngFor = "let venta of listVentas, let i = index;">
               <ion-card-header>
-                <ion-card-subtitle>{{venta.codigoReferencia}}</ion-card-subtitle>
+                <ion-card-subtitle>{{(cantidadVentas+1) - i}} | {{venta.codigoReferencia}}</ion-card-subtitle>
                 <ion-card-title color = "secondary">{{venta.productos}}</ion-card-title>
               </ion-card-header>
               <ion-card-content>
@@ -62,7 +63,7 @@
 
                 <ion-item>
                   <ion-label>Tipo de compra: <span class = "ventaTipo">{{venta.tipo}}</span></ion-label>
-
+                 
                   <div class="item-note" slot = "end">
                     <ion-button clear (click)="editarVentaModal(venta.idVenta)" color = "dark">
                       <ion-icon name="create"></ion-icon>
@@ -72,12 +73,24 @@
                     </ion-button>
                   </div>
                 </ion-item>
+                <ion-item>
+                  <ion-card-subtitle>Expira el {{venta.fechaExpiracion | date: 'short' }}</ion-card-subtitle>
+                </ion-item>
               </ion-card-content>  
+
+             
       </ion-card>
     </span>
 
    
   </div>
+
+  <ion-infinite-scroll threshold="50px" (ionInfinite)="loadDataVentas($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Cargando más datos">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content >
 
 

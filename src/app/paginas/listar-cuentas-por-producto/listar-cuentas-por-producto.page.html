@@ -21,7 +21,7 @@
       </ion-item>
       <ion-card-content (click) = "openModalDescCuenta(cuenta.idCuenta)">
         <ion-item>
-          <ion-label>Fecha renovación: {{cuenta.fechaRenovacion}}</ion-label>
+          <ion-label>Fecha renovación: {{cuenta.fechaRenovacion*1000 | date : 'short'}}</ion-label>
         </ion-item>
         <ion-item>
           <span>Estado: </span><ion-label color = "success"> {{cuenta.estado}}</ion-label>

@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Descripción de la cuenta</ion-title>
+    <ion-buttons slot = "end">
+      <ion-icon (click) = "closeModal()" name = "close-circle"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -59,7 +62,7 @@
           </ion-select>
         </ion-item>
       </ion-list>
-      <ion-button type = "submit">Agregar</ion-button>
+      <ion-button type = "submit" expand = "full">Agregar</ion-button>
       </form>
       </ion-card-content>
 

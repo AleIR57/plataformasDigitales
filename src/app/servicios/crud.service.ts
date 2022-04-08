@@ -187,6 +187,22 @@ export class CrudService {
     return  this.firebase.collection('vendedores').doc(idVendedor).snapshotChanges();
   }
 
+  obtenerMedios(): Observable<any>{
+    return this.firebase.collection('medios').snapshotChanges();
+  }
+
+  eliminarMedio(id: string): Promise<any>{
+    return this.firebase.collection('medios').doc(id).delete();
+  }
+
+  editarMedio(id: string, medio:any): Promise<any>{
+   return this.firebase.collection('medios').doc(id).update(medio);
+  }
+
+  getMedioEdit(idMedio: string){
+    return  this.firebase.collection('medios').doc(idMedio).snapshotChanges();
+  }
+
   
 
   
