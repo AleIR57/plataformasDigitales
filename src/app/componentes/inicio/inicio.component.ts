@@ -35,6 +35,13 @@ export class InicioComponent implements OnInit {
   variableDinero:any;
   VENDEDOR: Vendedor;
   cantidadVentas: any;
+  listMedios: any[] = [];
+  dineroMedio: any;
+  variableDineroMedio:any;
+  MEDIO: any;
+  filterVentas = '';
+  filterClientes = '';
+  filterGastos = '';
 
   constructor(public modalController: ModalController, private crudService: CrudService) { }
 
@@ -222,9 +229,9 @@ export class InicioComponent implements OnInit {
   }
 
 
-  eliminarVenta(id:any, precioTotal:any){
+  eliminarVenta(id:any, precioTotal:any, formaPago: any){
     this.crudService.eliminarVenta(id).then(() =>{
-      this.editarVentaVendedor(precioTotal);
+      this.editarVentaVendedor(precioTotal, formaPago);
     })
   }
 
@@ -234,10 +241,10 @@ export class InicioComponent implements OnInit {
     })
   }
 
-  eliminarGasto(id:any, precioTotal:any){
+  eliminarGasto(id:any, precioTotal:any, formaPago:any){
     this.crudService.eliminarGasto(id).then(() =>{
  
-      this.editarGastoVendedor(precioTotal);
+      this.editarGastoVendedor(precioTotal, formaPago);
     })
   }
 
@@ -269,8 +276,8 @@ export class InicioComponent implements OnInit {
   }
 
 
-  editarGastoVendedor(precioTotal: any){
-    
+  editarGastoVendedor(precioTotal: any, formaPago: any){
+    let variableMedio;
 
     this.crudService.getVendedorEdit('QmgFh25b48hS6eRifRGm').pipe(first()).subscribe(doc =>{
       this.listVendedor.push(doc.payload.data());
@@ -296,13 +303,50 @@ export class InicioComponent implements OnInit {
      
     });
 
+    if(formaPago == 'Nequi'){
+      variableMedio = 'EBbKeVcigRBGBRE9WOyV';
+    }
+    else if(formaPago == 'Bancolombia'){
+      variableMedio = '8S1SVm7MJQaBxUNohR9T';
+    }
+    else if(formaPago == 'Daviplata'){
+      variableMedio = 'wAovBxzhYMz4r7O89UQp';
+    }
+    else if(formaPago == 'Movii'){
+      variableMedio = 'wi8QYpSa7Xuu7BKtlQSu';
+    }
+    else if(formaPago == 'Giro'){
+      variableMedio = 'jrarrZcWjXHKGWS48yml';
+    }
+
+    console.log(variableMedio);
+
+    this.crudService.getMedioEdit(variableMedio).pipe(first()).subscribe(doc =>{
+      this.listMedios.push(doc.payload.data());
+      this.dineroMedio = Number(this.listMedios[0].Dinero);
+      
+      this.variableDineroMedio = String(this.dineroMedio+Number(precioTotal));
+      console.log("Precio resta: " +this.variableDineroMedio)
+      
+      this.MEDIO = {
+        Nombre: formaPago,
+        Dinero: this.variableDineroMedio,
+    
+     }
+     console.log("Precio: " + this.dineroMedio)
+     this.crudService.editarMedio(variableMedio, this.MEDIO);
+     
+    });
+
+    
+
     
   
    
   }
 
-  editarVentaVendedor(precioTotal: any){
-    
+  editarVentaVendedor(precioTotal: any, formaPago: any){
+    let variableMedio;
 
     this.crudService.getVendedorEdit('QmgFh25b48hS6eRifRGm').pipe(first()).subscribe(doc =>{
       this.listVendedor.push(doc.payload.data());
@@ -331,7 +375,40 @@ export class InicioComponent implements OnInit {
      
     });
 
+    if(formaPago == 'Nequi'){
+      variableMedio = 'EBbKeVcigRBGBRE9WOyV';
+    }
+    else if(formaPago == 'Bancolombia'){
+      variableMedio = '8S1SVm7MJQaBxUNohR9T';
+    }
+    else if(formaPago == 'Daviplata'){
+      variableMedio = 'wAovBxzhYMz4r7O89UQp';
+    }
+    else if(formaPago == 'Movii'){
+      variableMedio = 'wi8QYpSa7Xuu7BKtlQSu';
+    }
+    else if(formaPago == 'Giro'){
+      variableMedio = 'jrarrZcWjXHKGWS48yml';
+    }
+
+    console.log(variableMedio);
+
+    this.crudService.getMedioEdit(variableMedio).pipe(first()).subscribe(doc =>{
+      this.listMedios.push(doc.payload.data());
+      this.dineroMedio = Number(this.listMedios[0].Dinero);
+      
+      this.variableDineroMedio = String(this.dineroMedio-Number(precioTotal));
+      console.log("Precio resta: " +this.variableDineroMedio)
+      
+      this.MEDIO = {
+        Nombre: formaPago,
+        Dinero: this.variableDineroMedio,
     
+     }
+     console.log("Precio: " + this.dineroMedio)
+     this.crudService.editarMedio(variableMedio, this.MEDIO);
+     
+    });
 
     
   

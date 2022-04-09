@@ -10,10 +10,8 @@
       </div>
 
       <div>
-        <ion-button fill = "clear" size = "small">
-          <ion-icon name = "search-outline"></ion-icon>
-        </ion-button>
-
+       
+         
         <ion-button fill = "clear" size = "small">
           <ion-icon name = "notifications-outline"></ion-icon>
         </ion-button>
@@ -51,7 +49,12 @@
   <ion-content *ngIf = "valorSegmento == 'Ventas'">
     <div class = "main_content_div">
       <span  >
-        <ion-card  class="ion-activated" *ngFor = "let venta of listVentas, let i = index;">
+        <ion-card>
+          <ion-input  class = "searcher" position = "floating" type  = "text" class = "forms-control" placeholder = "Buscar.." [(ngModel)] = "filterVentas" name = "filterVentas"> </ion-input>
+        </ion-card>
+       
+        <ion-card  class="ion-activated" *ngFor = "let venta of listVentas | filterPipe: filterVentas, let i = index;">
+        
               <ion-card-header>
                 <ion-card-subtitle>{{(cantidadVentas+1) - i}} | {{venta.codigoReferencia}}</ion-card-subtitle>
                 <ion-card-title color = "secondary">{{venta.productos}}</ion-card-title>
@@ -68,7 +71,7 @@
                     <ion-button clear (click)="editarVentaModal(venta.idVenta)" color = "dark">
                       <ion-icon name="create"></ion-icon>
                     </ion-button>
-                    <ion-button clear (click)="eliminarVenta(venta.idVenta, venta.precioTotal)" color = "dark">
+                    <ion-button clear (click)="eliminarVenta(venta.idVenta, venta.precioTotal, venta.formaPago)" color = "dark">
                       <ion-icon name="trash"></ion-icon>
                     </ion-button>
                   </div>
@@ -147,8 +150,11 @@
 
 <ion-content  *ngIf = "valorSegmento == 'Clientes'">
   <div class = "main_content_div">
+    <ion-card>
+      <ion-input  class = "searcher" position = "floating" type  = "text" class = "forms-control" placeholder = "Buscar.." [(ngModel)] = "filterClientes" name = "filterClientes"> </ion-input>
+    </ion-card>
     <span >
-      <ion-card class="ion-activated" *ngFor = "let cliente of listClientes">
+      <ion-card class="ion-activated" *ngFor = "let cliente of listClientes | filterPipeCliente: filterClientes">
         <ion-card-header>
           <ion-card-title color = "secondary">{{cliente.nombre}}</ion-card-title>
         </ion-card-header>
@@ -182,8 +188,11 @@
 
   <ion-content *ngIf = "valorSegmento == 'Gastos'">
     <div class = "main_content_div">
+      <ion-card>
+        <ion-input  class = "searcher" position = "floating" type  = "text" class = "forms-control" placeholder = "Buscar.." [(ngModel)] = "filterGastos" name = "filterGastos"> </ion-input>
+      </ion-card>
       <span  >
-        <ion-card class="ion-activated" *ngFor = "let gasto of listGastos">
+        <ion-card class="ion-activated" *ngFor = "let gasto of listGastos | filterPipeGasto: filterGastos">
               <ion-card-header>
                 <ion-card-subtitle>{{gasto.codigoReferencia}}</ion-card-subtitle>
                 <ion-card-title color = "secondary">{{gasto.productos}}</ion-card-title>
@@ -199,7 +208,7 @@
                     <ion-button clear (click)="editarGastoModal(gasto.idGasto)" color = "dark">
                       <ion-icon name="create"></ion-icon>
                     </ion-button>
-                    <ion-button clear (click)="eliminarGasto(gasto.idGasto, gasto.precioTotal)" color = "dark">
+                    <ion-button clear (click)="eliminarGasto(gasto.idGasto, gasto.precioTotal, gasto.formaPago)" color = "dark">
                       <ion-icon name="trash"></ion-icon>
                     </ion-button>
                   </div>

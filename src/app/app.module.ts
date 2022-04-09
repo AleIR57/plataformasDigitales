@@ -32,10 +32,13 @@ import { providePerformance,getPerformance } from '@angular/fire/performance';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire/compat';
+import { FilterPipePipe } from './pipes/filter-pipe.pipe';
+import { FilterPipeClientePipe } from './pipes/filter-pipe-cliente.pipe';
+import { FilterPipeGastoPipe } from './pipes/filter-pipe-gasto.pipe';
 
 
 @NgModule({
-  declarations: [AppComponent, InicioComponent, CrearVentaPage, CrearClientePage, CrearGastoPage, CrearProductoPage, ListarCuentasPorProductoPage, CrearCuentaPage, EditarVentaPage, EditarClientePage, EditarPagoPage, DescCuentaPage, DescVentaPage, ApartadoMediosPage],
+  declarations: [AppComponent, InicioComponent, CrearVentaPage, CrearClientePage, CrearGastoPage, CrearProductoPage, ListarCuentasPorProductoPage, CrearCuentaPage, EditarVentaPage, EditarClientePage, EditarPagoPage, DescCuentaPage, DescVentaPage, ApartadoMediosPage, FilterPipePipe, FilterPipeClientePipe, FilterPipeGastoPipe],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, provideFirebaseApp(() => initializeApp(firebaseConfig)), provideAnalytics(() => getAnalytics()), provideAuth(() => getAuth()), provideDatabase(() => getDatabase()), provideFirestore(() => getFirestore()), provideFunctions(() => getFunctions()), provideMessaging(() => getMessaging()), providePerformance(() => getPerformance()), provideRemoteConfig(() => getRemoteConfig()), provideStorage(() => getStorage()), ReactiveFormsModule, FormsModule, AngularFireModule.initializeApp(firebaseConfig)],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, ScreenTrackingService,UserTrackingService],
